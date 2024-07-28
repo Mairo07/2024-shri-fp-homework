@@ -92,6 +92,10 @@ const allGreenPredicats = pipe(
     map(key => propSatisfies(isGreen, key))
 );
 
+const isAllGreen = shapes => allPass(allGreenPredicats(shapes))(shapes);
+const isAllOrange = shapes => allPass(allOrangePredicats(shapes))(shapes);
+
+
 
 // 1. Красная звезда, зеленый квадрат, все остальные белые.
 export const validateFieldN1 = allPass([
@@ -124,10 +128,11 @@ export const validateFieldN6 = allPass([
 ]);
 
 // 7. Все фигуры оранжевые.
-export const validateFieldN7 = (shapes) => {
-    const isAllOrange = allPass(allOrangePredicats(shapes))
-    return isAllOrange(shapes)   
-};
+export const validateFieldN7 = isAllOrange;
+// export const validateFieldN7 = (shapes) => {
+//     const isAllOrange = allPass(allOrangePredicats(shapes))
+//     return isAllOrange(shapes)   
+// };
 
 // 8. Не красная и не белая звезда, остальные – любого цвета.
 export const validateFieldN8 = allPass([
@@ -135,13 +140,9 @@ export const validateFieldN8 = allPass([
     isNotWhiteStar
 ]);
 
-const v1 =(v) => {
-    console.log(v);
-    return v
-};
-const isAllGreen = pipe(allGreenPredicats, v1, allPass)
-export const validateFieldN9 = (shapes) => isAllGreen(shapes)(shapes)
 // 9. Все фигуры зеленые.
+export const validateFieldN9 = isAllGreen
+
 // export const validateFieldN9 = (shapes) => {
 //     // v1(allGreenPredicats(shapes))
 //     // const isAllGreen = allPass(allGreenPredicats(shapes))
