@@ -135,11 +135,19 @@ export const validateFieldN8 = allPass([
     isNotWhiteStar
 ]);
 
-// 9. Все фигуры зеленые.
-export const validateFieldN9 = (shapes) => {
-    const isAllGreen = allPass(allGreenPredicats(shapes))
-    return isAllGreen(shapes)   
+const v1 =(v) => {
+    console.log(v);
+    return v
 };
+const isAllGreen = pipe(allGreenPredicats, v1, allPass)
+export const validateFieldN9 = (shapes) => isAllGreen(shapes)(shapes)
+// 9. Все фигуры зеленые.
+// export const validateFieldN9 = (shapes) => {
+//     // v1(allGreenPredicats(shapes))
+//     // const isAllGreen = allPass(allGreenPredicats(shapes))
+//     const ans = isAllGreen(shapes) 
+//     return ans(shapes)   
+// };
 
 // 10. Треугольник и квадрат одного цвета (не белого), остальные – любого цвета
 export const validateFieldN10 = allPass([isTriangleAndSquareOneColor, isNotWhiteSquare])
